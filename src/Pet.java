@@ -39,6 +39,10 @@ public class Pet {
         return vaccinated;
     }
 
+    public void vaccinate() {
+        vaccinated = true;
+    }
+
     public void setPrice(int price) {
         this.price = price;
     }
