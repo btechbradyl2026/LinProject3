@@ -35,12 +35,16 @@ public class PetStore {
                 int r = scan.nextInt();
                 scan.nextLine();
                 for (int i = 0; i < pets[0].length; i ++) {
-                    pets[r][i].vaccinate();
+                    pets[r - 1][i].vaccinate();
                 }
                 setMoney(money - 25);
                 System.out.println("Pets in row " + r + " have been vaccinated");
             } else if (scan.nextLine().equals("N")) {
 
+
+
+                turns++;
+                infections();
             }
         }
     }
@@ -99,7 +103,7 @@ public class PetStore {
     }
 
     public int ageGen() {
-        return 1 + (int)(Math.random() * ((14) + 1));
+        return 1 + (int)(Math.random() * ((9) + 1));
     }
 
     public void printPets() {
@@ -119,7 +123,7 @@ public class PetStore {
                for (int j = 0; j < pets[0].length; j ++) {
                    if (pet[j].isVaccinated()) {
 
-                   } else if ((1  + (int)(Math.random() * ((99) + 1)) < turns * 2)){
+                   } else if ((1  + (int)(Math.random() * ((99) + 1)) < turns * 3)){
                        death.add(pet[j]);
                    }
                }
@@ -152,6 +156,17 @@ public class PetStore {
             System.out.println(names);
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void remove() {
+        int count = 0;
+        for (int i = 0; i < pets.length; i ++) {
+            for (int j = 0; j < pets[0].length; j ++) {
+                if (pets[i][j].getName().equals("gone")) {
+                    count ++;
+                }
+            }
         }
     }
 
