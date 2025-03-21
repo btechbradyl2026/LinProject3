@@ -22,6 +22,7 @@ public class PetStore {
             System.out.println("(P)rint pets");
             System.out.println("(G)enerate 5 new pets (Costs 50 dollars)");
             System.out.println("(V)accinate a row of pets (Costs 25 dollars)");
+            System.out.println("(N)ext turn");
             System.out.println("Your current balance is " + money);
             if (scan.nextLine().equals("P")) {
                 printPets();
@@ -29,6 +30,16 @@ public class PetStore {
                 System.out.println("cats or dogs?");
                 generatePet(scan.nextLine());
             } else if (scan.nextLine().equals("V")) {
+                System.out.println("Which row would you like to vaccinate?");
+                printPets();
+                int r = scan.nextInt();
+                scan.nextLine();
+                for (int i = 0; i < pets[0].length; i ++) {
+                    pets[r][i].vaccinate();
+                }
+                setMoney(money - 25);
+                System.out.println("Pets in row " + r + " have been vaccinated");
+            } else if (scan.nextLine().equals("N")) {
 
             }
         }
@@ -46,11 +57,11 @@ public class PetStore {
         for (int i = 0; i < 5; i ++) {
             if (cd.equals("cat")) {
                 int price = priceGen();
-                double want = ((double) price/100 - 100) * -1;
+                double want = ((double) price/100 - 95) * -1;
                 currentPet = new Cat(nameGen(), ageGen(), false ,genderGen(), price, want);
             } else if (cd.equals("dog")) {
                 int price = priceGen();
-                double want = ((double) price/100 - 100) * -1;
+                double want = ((double) price/100 - 95) * -1;
                 currentPet = new Dog(nameGen(), ageGen(), false ,genderGen(), price, want);
             } else {
                 System.out.println("Please enter \"cat\" or \"dog\" in the second slot");
@@ -63,7 +74,7 @@ public class PetStore {
         temp = pets.clone();
         temp[temp.length - 1] = newRow;
         pets = temp;
-        System.out.println(Arrays.deepToString(pets));
+        printPets();
     }
 
 
@@ -103,7 +114,6 @@ public class PetStore {
     public void infections() {
        ArrayList<Pet> death = new ArrayList<Pet>();
         if (getTurns() <= 5) {
-
        } else if ((1 + (int)(Math.random() * ((4) + 1)) == 1)){
            for (Pet[] pet : pets) {
                for (int j = 0; j < pets[0].length; j ++) {
@@ -111,16 +121,24 @@ public class PetStore {
 
                    } else if ((1  + (int)(Math.random() * ((99) + 1)) < turns * 2)){
                        death.add(pet[j]);
-                       pet[j] = null;
                    }
                }
            }
             for (int i = 0; i < death.size() - 1; i ++) {
                 System.out.print(death.get(i).getName() + ", ");
             }
-            System.out.print(death.get(death.size()- 1).getName());
+            System.out.print("and " + death.getLast().getName());
+            System.out.println(" died");
        }
+        for (int i = 0; i < pets.length; i ++) {
+            for (int j = 0; j < pets[0].length; j ++) {
+                if (death.contains(pets[i][j])) {
+                    pets[i][j] = new Pet("gone", 0, false, "N/A", 0, 0);
+                }
+            }
+        }
     }
+
 
     private void getNames() {
         try {

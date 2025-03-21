@@ -15,6 +15,15 @@ public class Pet {
         wanted = w;
     }
 
+    public void printInfo() {
+        System.out.println("Name: " + getName());
+        System.out.println("Age: " + getAge());
+        System.out.println("Vaccination Status: " + isVaccinated());
+        System.out.println("Gender: " + getGender());
+        System.out.println("Price Bonus: " + getPrice());
+        System.out.println("Wantedness: " + getWanted());
+    }
+
     public double getWanted() {
         return wanted;
     }
