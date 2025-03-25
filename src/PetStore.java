@@ -40,13 +40,29 @@ public class PetStore {
                 setMoney(money - 25);
                 System.out.println("Pets in row " + r + " have been vaccinated");
             } else if (scan.nextLine().equals("N")) {
+                Customer temp = generateCustomer();
+                temp.buy();
+                System.out.println("Sell a pet to the customer? (Y/N)");
+                String option = scan.nextLine();
+                if (option.equals("Y")) {
 
-
-
+                } else if (option.equals("N")) {
+                    System.out.println("You declined the customer's request for a pet");
+                }
                 turns++;
                 infections();
             }
         }
+    }
+
+    public Customer generateCustomer () {
+        String type;
+        if (genderGen().equals("male")) {
+            type = "cat";
+        } else {
+            type = "dog";
+        }
+        return new Customer(ageGen(), priceGen(), type, genderGen());
     }
 
     public void welcome() {
@@ -82,8 +98,8 @@ public class PetStore {
     }
 
 
-    public void sellPet(int row, int col) {
-
+    public Pet selectPet(int row, int col) {
+        return pets[row][col];
     }
 
     public String nameGen() {

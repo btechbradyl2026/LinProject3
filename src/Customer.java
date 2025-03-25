@@ -4,17 +4,40 @@ public class Customer {
     private String type;
     private String gender;
     boolean vaccination;
-    public Customer(int a, int b, String type, String g, boolean v) {
+    public Customer(int a, int b, String type, String g) {
         age = a;
         bonus = b;
         this.type = type;
         gender = g;
-        vaccination = v;
     }
 
     public void buy() {
-        System.out.println("Hello, I would like " + type + " who's vaccination status is " + vaccination + ", who's " + age + " years old, and I'm willing to pay an additional " + bonus);
+        System.out.println("Hello, I would like a " + type + ", who's " + age + " years old, and I'm willing to pay an additional " + bonus);
     }
 
+    public void decline() {
+        System.out.println("I don't want that pet!");
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public boolean requires(Pet pet) {
+            if (pet instanceof Dog) {
+                if (type.equals("dog")) {
+                    if (pet.getAge() == age) {
+                        return true;
+                    }
+                }
+            } else if (pet instanceof Cat) {
+                if (type.equals("cat")) {
+                    if (pet.getAge() == age) {
+                        return true;
+                    }
+                }
+            }
+        return false;
+    }
 
 }
