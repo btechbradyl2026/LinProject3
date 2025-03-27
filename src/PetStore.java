@@ -45,7 +45,16 @@ public class PetStore {
                 System.out.println("Sell a pet to the customer? (Y/N)");
                 String option = scan.nextLine();
                 if (option.equals("Y")) {
+                    System.out.println("Which pet would you like to sell? (ROW)");
+                    printPets();
+                    int row = scan.nextInt();
+                    System.out.println("Which pet would you like to sell? (COL)");
+                    int col = scan.nextInt();
+                    if (temp.requires(selectPet(row, col))) {
 
+                    } else {
+                        temp.decline();
+                    }
                 } else if (option.equals("N")) {
                     System.out.println("You declined the customer's request for a pet");
                 }
@@ -183,6 +192,25 @@ public class PetStore {
                     count ++;
                 }
             }
+        }
+        if (count >= 5) {
+            int nrow = count/5;
+            Pet[][] temp = new Pet[pets.length - nrow][5];
+            int r = 0;
+            int c = 0;
+            for (int i = 0; i < pets.length; i ++) {
+                for (int j = 0; j < pets[0].length; j ++) {
+                    if (!pets[i][j].getName().equals("gone")) {
+                        temp[r][c] = pets[i][j];
+                        c ++;
+                        if (c == 6) {
+                            c = 0;
+                            r ++;
+                        }
+                    }
+                }
+            }
+            pets = temp;
         }
     }
 
