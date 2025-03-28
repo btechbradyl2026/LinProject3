@@ -59,4 +59,8 @@ public class Pet {
     public void setWanted(double wanted) {
         this.wanted = wanted;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
