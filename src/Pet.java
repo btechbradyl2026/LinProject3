@@ -4,15 +4,21 @@ public class Pet {
     boolean vaccinated;
     String gender;
     int price;
-    double wanted;
 
-    public Pet (String n, int a, boolean v, String gender, int p, double w) {
+    public Pet (String n, int a, boolean v, String gender, int p) {
         name = n;
         age = a;
         vaccinated = v;
         this.gender = gender;
         price = p;
-        wanted = w;
+    }
+
+    public String toString() {
+        return getName();
+    }
+
+    public String printNeeded() {
+        return ("|A: " + getAge() + ", G: " + getGender() + ", T: ");
     }
 
     public void printInfo() {
@@ -21,11 +27,7 @@ public class Pet {
         System.out.println("Vaccination Status: " + isVaccinated());
         System.out.println("Gender: " + getGender());
         System.out.println("Price Bonus: " + getPrice());
-        System.out.println("Wantedness: " + getWanted());
-    }
 
-    public double getWanted() {
-        return wanted;
     }
 
     public int getPrice() {
@@ -54,10 +56,6 @@ public class Pet {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public void setWanted(double wanted) {
-        this.wanted = wanted;
     }
 
     public void setName(String name) {

@@ -12,7 +12,7 @@ public class Customer {
     }
 
     public void buy() {
-        System.out.println("Hello, I would like a " + type + ", who's " + age + " years old, and I'm willing to pay an additional " + bonus);
+        System.out.println("Hello, I would like a " + type + ", who's " + age + " years old, who's also " + gender + " and I'm willing to pay an additional " + bonus);
     }
 
     public void decline() {
@@ -27,13 +27,17 @@ public class Customer {
             if (pet instanceof Dog) {
                 if (type.equals("dog")) {
                     if (pet.getAge() == age) {
-                        return true;
+                        if (pet.getGender().equals(gender)) {
+                            return true;
+                        }
                     }
                 }
             } else if (pet instanceof Cat) {
                 if (type.equals("cat")) {
                     if (pet.getAge() == age) {
-                        return true;
+                        if (pet.getGender().equals(gender)) {
+                            return true;
+                        }
                     }
                 }
             }

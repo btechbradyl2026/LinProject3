@@ -49,7 +49,7 @@ public class PetStore {
                 temp.buy();
                 System.out.println("Sell a pet to the customer? (Y/N) (C to check pet inventory)");
                 printPets();
-                String option = scan.nextLine();
+                String option;
                 int guh = 0;
                 while (guh == 0) {
                     option = scan.nextLine();
@@ -64,7 +64,7 @@ public class PetStore {
                             pets[row][col].setName("gone");
                             setMoney(money + temp.getBonus() + pets[row][col].getPrice());
                             guh = 1;
-                            pets[row][col] = new Pet("gone", 0, false, "N/A", 0, 0);
+                            pets[row][col] = new Pet("gone", 0, false, "N/A", 0);
                         } else {
                             temp.decline();
                             guh = 1;
@@ -123,12 +123,10 @@ public class PetStore {
         for (int i = 0; i < 5; i ++) {
             if (cd.equals("cat")) {
                 int price = priceGen();
-                double want = ((double) price/100 - 95) * -1;
-                currentPet = new Cat(nameGen(), ageGen(), false ,genderGen(), price, want);
+                currentPet = new Cat(nameGen(), ageGen(), false ,genderGen(), price);
             } else if (cd.equals("dog")) {
                 int price = priceGen();
-                double want = ((double) price/100 - 95) * -1;
-                currentPet = new Dog(nameGen(), ageGen(), false ,genderGen(), price, want);
+                currentPet = new Dog(nameGen(), ageGen(), false ,genderGen(), price);
             } else {
                 System.out.println("Please enter \"cat\" or \"dog\" in the second slot");
                 break;
@@ -174,14 +172,10 @@ public class PetStore {
     }
 
     public void printPets() {
+        remove();
         for (int i = 0; i < pets.length; i ++) {
             for (int j = 0; j < pets[0].length; j++) {
                 if (j == 0 ) {
-                    if (pets[i][j] instanceof Dog) {
-                        System.out.print("D: ");
-                    } else {
-                        System.out.print("C: ");
-                    }
                 }
                 System.out.print(pets[i][j].getName() + " ");
             }
@@ -211,14 +205,14 @@ public class PetStore {
         for (int i = 0; i < pets.length; i ++) {
             for (int j = 0; j < pets[0].length; j ++) {
                 if (death.contains(pets[i][j])) {
-                    pets[i][j] = new Pet("gone", 0, false, "N/A", 0, 0);
+                    pets[i][j] = new Pet("gone", 0, false, "N/A", 0);
                 }
             }
         }
     }
 
 
-    private void getNames() {
+    public void getNames() {
         try {
             File myFile = new File("src\\Names");
             Scanner fileScanner = new Scanner(myFile);
@@ -245,20 +239,37 @@ public class PetStore {
         if (count >= 5) {
             int nrow = count/5;
             Pet[][] temp = new Pet[pets.length - nrow][5];
+            System.out.println(temp.length);
             int r = 0;
             int c = 0;
             for (int i = 0; i < pets.length; i ++) {
                 for (int j = 0; j < pets[0].length; j ++) {
+                    if (r == temp.length - 1 && c == 4) {
+                        System.out.println(Arrays.deepToString(temp));
+                        temp[r][c + 1] = pets[i][j];
+                        break;
+                    }
                     if (!pets[i][j].getName().equals("gone")) {
                         temp[r][c] = pets[i][j];
                         c ++;
-                        if (c == 6) {
+                        if (c == 5) {
                             c = 0;
                             r ++;
+                        }
+                    } else {
+                        count --;
+                        if (count >= 5) {
+                            temp[r][c] = new Pet("gone", 0, false, "N/A", 0);;
+                            c ++;
+                            if (c == 5) {
+                                c = 0;
+                                r ++;
+                            }
                         }
                     }
                 }
             }
+            System.out.println(Arrays.deepToString(temp));
             pets = temp;
         }
     }
