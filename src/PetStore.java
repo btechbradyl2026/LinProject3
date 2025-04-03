@@ -239,31 +239,30 @@ public class PetStore {
         if (count >= 5) {
             int nrow = count/5;
             Pet[][] temp = new Pet[pets.length - nrow][5];
-            System.out.println(temp.length);
             int r = 0;
             int c = 0;
             for (int i = 0; i < pets.length; i ++) {
-                for (int j = 0; j < pets[0].length; j ++) {
+                for (int j = 0; j < pets[0].length; j++) {
                     if (r == temp.length - 1 && c == 4) {
                         System.out.println(Arrays.deepToString(temp));
-                        temp[r][c + 1] = pets[i][j];
-                        break;
+                        temp[r][c] = pets[i][j];
+                        return;
                     }
                     if (!pets[i][j].getName().equals("gone")) {
                         temp[r][c] = pets[i][j];
-                        c ++;
+                        c++;
                         if (c == 5) {
                             c = 0;
-                            r ++;
+                            r++;
                         }
                     } else {
-                        count --;
-                        if (count >= 5) {
-                            temp[r][c] = new Pet("gone", 0, false, "N/A", 0);;
-                            c ++;
+                        count--;
+                        if (count <= 5) {
+                            temp[r][c] = new Pet("gone", 0, false, "N/A", 0);
+                            c++;
                             if (c == 5) {
                                 c = 0;
-                                r ++;
+                                r++;
                             }
                         }
                     }
