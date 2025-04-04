@@ -254,10 +254,7 @@ public class PetStore {
                         if (count % 5 != 0) {
                             temp[r][c] = new Pet("gone", 0, false, "N/A", 0);
                             c++;
-                            if (c == 5) {
-                                c = 0;
-                                r++;
-                            }
+
                         }
                     }
                 }
