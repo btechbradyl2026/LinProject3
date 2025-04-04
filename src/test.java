@@ -24,8 +24,11 @@ public class test {
         test.pets[3][3].setName("gone");
         test.pets[2][1].setName("gone");
         test.pets[2][0].setName("gone");
+        test.pets[3][0].setName("gone");
+        System.out.println("a");
         System.out.println(Arrays.deepToString(test.pets));
         test.remove();
+        System.out.println("d");
         System.out.println(Arrays.deepToString(test.pets));
     }
 }

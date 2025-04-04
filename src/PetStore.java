@@ -177,7 +177,7 @@ public class PetStore {
             for (int j = 0; j < pets[0].length; j++) {
                 if (j == 0 ) {
                 }
-                System.out.print(pets[i][j].getName() + " ");
+                System.out.print(pets[i][j].printNeeded() + " ");
             }
             System.out.println();
         }
@@ -220,8 +220,6 @@ public class PetStore {
                 String data = fileScanner.nextLine();
                 names.add(data);
             }
-            System.out.println("\nNames.txt file imported successfully!");
-            System.out.println(names);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -243,21 +241,17 @@ public class PetStore {
             int c = 0;
             for (int i = 0; i < pets.length; i ++) {
                 for (int j = 0; j < pets[0].length; j++) {
-                    if (r == temp.length - 1 && c == 4) {
-                        System.out.println(Arrays.deepToString(temp));
+                    if (r == temp.length - 1 && c == 4 && !pets[i][j].getName().equals("gone")) {
                         temp[r][c] = pets[i][j];
-                        return;
-                    }
-                    if (!pets[i][j].getName().equals("gone")) {
+                    } else if (!pets[i][j].getName().equals("gone")) {
                         temp[r][c] = pets[i][j];
                         c++;
                         if (c == 5) {
                             c = 0;
                             r++;
                         }
-                    } else {
-                        count--;
-                        if (count <= 5) {
+                    } else if (r == temp.length - 1 && c == 4){
+                        if (count % 5 != 0) {
                             temp[r][c] = new Pet("gone", 0, false, "N/A", 0);
                             c++;
                             if (c == 5) {
@@ -268,7 +262,13 @@ public class PetStore {
                     }
                 }
             }
-            System.out.println(Arrays.deepToString(temp));
+            for (int i = 0; i < temp.length; i ++) {
+                for (int j = 0; j < temp[0].length; j ++) {
+                    if (temp[i][j] == null) {
+                        temp[i][j] =  new Pet("gone", 0, false, "N/A", 0);
+                    }
+                }
+            }
             pets = temp;
         }
     }
